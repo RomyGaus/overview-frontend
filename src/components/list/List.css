@@ -1,0 +1,20 @@
+.list-container {
+    padding: 0 15px;
+}
+
+.list-row {
+    display: grid;
+    grid-template-columns: auto 100px 100px 100px 20%;
+    grid-template-rows: auto;
+    border-top: 1px solid #006D77;
+}
+
+.list-header {
+    border-top: none;
+}
+
+.list-header p {
+    color: #006D77;
+    font-weight: 900;
+    font-size: larger;
+}
