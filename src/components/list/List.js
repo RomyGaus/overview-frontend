@@ -24,21 +24,37 @@ class List extends Component {
       });
   }
 
+  formatDate = (epoch) => {
+    const d = new Date(epoch);
+    let month = d.getMonth() + 1;
+    let day = d.getDate();
+    let year = d.getFullYear();
+
+    let newdate = year + "/" + month + "/" + day;
+    let text = newdate.toString();
+    return text;
+  }
+
   render() {
     return (
       <div className="list-container">
+        <button>New</button>
         <div className="list-row list-header">
             <p>Name</p>
-            <p>Amount</p>
-            <p>Target</p>
-            <p>Updated</p>
-          </div>
+            <p className="num">Amount</p>
+            <p className="num">Target</p>
+            <p className="num">Updated</p>
+        </div>
         {Object.entries(this.state.items).map(([key, value]) => (
           <div className="list-row">
             <p>{value.name}</p>
-            <p>{value.amount}</p>
-            <p>{value.target}</p>
-            <p>{value.updated}</p>
+            <div className="amount">
+                <p className="arrow">&#129168;</p>
+                <input type="number" name="" min="0" max="100" defaultValue={value.amount}/>
+            </div>
+            <p className="num">{value.target}</p>
+            <p className="num">{this.formatDate(value.updated)}</p>
+            <button className="btn">Delete</button>
           </div>
         ))}
       </div>
