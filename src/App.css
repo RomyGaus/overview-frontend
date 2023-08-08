@@ -21,3 +21,20 @@ body {
   margin: 0;
   margin-bottom: 20px;
 }
+
+.btn-shopping {
+  background-color: #006D77;
+    color: #E6F0CC;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    width: 100px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 18px;
+}
+
+.btn-shopping:active {
+  transform: scale(0.95);
+  background-color: #0098A5;
+}

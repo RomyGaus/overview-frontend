@@ -10,9 +10,7 @@ class App extends Component {
           <h1>Overview</h1>
           <h4>Organize your supplies and find out what you need to buy soon!</h4>
         </div>
-        <div className="buttons">
-            <button>Shopping List</button>
-        </div>
+        <button className='btn-shopping'>Shopping List</button>
         <List></List>
       </div>
     )

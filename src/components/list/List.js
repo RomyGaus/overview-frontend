@@ -38,7 +38,7 @@ class List extends Component {
   render() {
     return (
       <div className="list-container">
-        <button>New</button>
+        <button className="btn btn-new">New</button>
         <div className="list-row list-header">
             <p>Name</p>
             <p className="num">Amount</p>
@@ -47,14 +47,19 @@ class List extends Component {
         </div>
         {Object.entries(this.state.items).map(([key, value]) => (
           <div className="list-row">
-            <p>{value.name}</p>
+            <input className="name" type="text" name="" defaultValue={value.name}/>
             <div className="amount">
-                <p className="arrow">&#129168;</p>
                 <input type="number" name="" min="0" max="100" defaultValue={value.amount}/>
+                <button className="btn arrow arrow-up">&#9650;</button>
+                <button className="btn arrow arrow-down">&#9660;</button>
             </div>
-            <p className="num">{value.target}</p>
+            <div className="target">
+                <input type="number" name="" min="0" max="100" defaultValue={value.target}/>
+                <button className="btn arrow arrow-up">&#9650;</button>
+                <button className="btn arrow arrow-down">&#9660;</button>
+            </div>
             <p className="num">{this.formatDate(value.updated)}</p>
-            <button className="btn">Delete</button>
+            <button className="btn btn-delete">&#128465;</button>
           </div>
         ))}
       </div>
