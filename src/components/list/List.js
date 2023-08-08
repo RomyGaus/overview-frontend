@@ -35,6 +35,20 @@ class List extends Component {
     return text;
   }
 
+  deleteItem = (id) => {
+    fetch(`http://localhost:8000/stocks/${id}`, {
+        method: "delete",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify()
+    })
+    .then((res) => {
+        var updatedStateItems = this.state.items.filter(item => item.id !== id)
+        this.setState({
+            items: updatedStateItems
+        })
+    })
+  }
+
   render() {
     return (
       <div className="list-container">
@@ -46,7 +60,7 @@ class List extends Component {
             <p className="num">Updated</p>
         </div>
         {Object.entries(this.state.items).map(([key, value]) => (
-          <div className="list-row">
+          <div className="list-row" key={key}>
             <input className="name" type="text" name="" defaultValue={value.name}/>
             <div className="amount">
                 <input type="number" name="" min="0" max="100" defaultValue={value.amount}/>
@@ -59,7 +73,7 @@ class List extends Component {
                 <button className="btn arrow arrow-down">&#9660;</button>
             </div>
             <p className="num">{this.formatDate(value.updated)}</p>
-            <button className="btn btn-delete">&#128465;</button>
+            <button className="btn btn-delete" onClick={() => this.deleteItem(value.id)}>&#128465;</button>
           </div>
         ))}
       </div>
