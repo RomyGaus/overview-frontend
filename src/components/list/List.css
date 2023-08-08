@@ -70,7 +70,8 @@ input[type="number"] {
 }
 
 .btn-delete {
-    font-size: 25px;
+    height: 40px;
+    padding: 5px;
 }
 
 .amount {

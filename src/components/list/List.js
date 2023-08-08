@@ -73,7 +73,8 @@ class List extends Component {
                 <button className="btn arrow arrow-down">&#9660;</button>
             </div>
             <p className="num">{this.formatDate(value.updated)}</p>
-            <button className="btn btn-delete" onClick={() => this.deleteItem(value.id)}>&#128465;</button>
+            <img className="btn btn-delete" src={require('./delete.png')} alt="delete-icon" onClick={() => this.deleteItem(value.id)}></img>
+            {/* <button className="btn btn-delete" onClick={() => this.deleteItem(value.id)}>&#128465;</button> */}
           </div>
         ))}
       </div>
