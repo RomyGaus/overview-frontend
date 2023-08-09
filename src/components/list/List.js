@@ -35,6 +35,27 @@ class List extends Component {
     return text;
   }
 
+  newItem = () => {
+    fetch("http://localhost:8000/stocks/", {
+        method: "post",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: "",
+            amount: 0,
+            target: 0
+        })
+    })
+    .then(response => response.json())
+    .then((json) => {
+        console.log(json)
+        var updatedStateItems = this.state.items
+        updatedStateItems.push(json.data)
+        this.setState({
+            items: updatedStateItems
+        })
+    })
+  }
+
   deleteItem = (id) => {
     fetch(`http://localhost:8000/stocks/${id}`, {
         method: "delete",
@@ -52,7 +73,6 @@ class List extends Component {
   render() {
     return (
       <div className="list-container">
-        <button className="btn btn-new">New</button>
         <div className="list-row list-header">
             <p>Name</p>
             <p className="num">Amount</p>
@@ -74,9 +94,9 @@ class List extends Component {
             </div>
             <p className="num">{this.formatDate(value.updated)}</p>
             <img className="btn btn-delete" src={require('./delete.png')} alt="delete-icon" onClick={() => this.deleteItem(value.id)}></img>
-            {/* <button className="btn btn-delete" onClick={() => this.deleteItem(value.id)}>&#128465;</button> */}
           </div>
         ))}
+        <button className="btn btn-new" onClick={() => this.newItem()}>New</button>
       </div>
     );
   }
