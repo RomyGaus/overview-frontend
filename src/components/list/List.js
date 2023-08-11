@@ -37,7 +37,7 @@ class List extends Component {
 
   newItem = () => {
     fetch("http://localhost:8000/stocks/", {
-        method: "post",
+        method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             name: "",
@@ -47,7 +47,6 @@ class List extends Component {
     })
     .then(response => response.json())
     .then((json) => {
-        console.log(json)
         var updatedStateItems = this.state.items
         updatedStateItems.push(json.data)
         this.setState({
@@ -56,9 +55,35 @@ class List extends Component {
     })
   }
 
+  updateItem = (item) => {
+    var updatedItem = this.state.items.find((element) => element.id === item.id);
+    Object.keys(updatedItem).forEach(key => {
+        if(item[key] !== undefined) {
+            updatedItem[key] = item[key]
+        }
+    })
+    fetch(`http://localhost:8000/stocks/${item.id}`, {
+        method: "PATCH",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedItem)
+    })
+    .then(response => response.json())
+    .then((json) => {
+        var updatedStateItems = this.state.items
+        var index = updatedStateItems.findIndex((element) => element.id === item.id);
+
+        if (index >= 0) {
+            updatedStateItems[index] = updatedItem;
+        }
+        this.setState({
+            items: updatedStateItems
+        })
+    })
+  }
+
   deleteItem = (id) => {
     fetch(`http://localhost:8000/stocks/${id}`, {
-        method: "delete",
+        method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify()
     })
@@ -81,16 +106,20 @@ class List extends Component {
         </div>
         {Object.entries(this.state.items).map(([key, value]) => (
           <div className="list-row" key={key}>
-            <input className="name" type="text" name="" defaultValue={value.name}/>
+            <div>
+                <input className="name" type="text" name="" defaultValue={value.name}/>
+                <button className="btn btn-edit">&#9998;</button>
+                <button className="btn btn-save" onClick={() => this.updateItem({id: value.id, name: value.name})}>&#x2713;</button>
+            </div>
             <div className="amount">
                 <input type="number" name="" min="0" max="100" defaultValue={value.amount}/>
-                <button className="btn arrow arrow-up">&#9650;</button>
-                <button className="btn arrow arrow-down">&#9660;</button>
+                <button className="btn arrow arrow-up" onClick={() => this.updateItem({id: value.id, amount: value.amount + 1})}>&#9650;</button>
+                <button className="btn arrow arrow-down" onClick={() => this.updateItem({id: value.id, amount: value.amount - 1})}>&#9660;</button>
             </div>
             <div className="target">
                 <input type="number" name="" min="0" max="100" defaultValue={value.target}/>
-                <button className="btn arrow arrow-up">&#9650;</button>
-                <button className="btn arrow arrow-down">&#9660;</button>
+                <button className="btn arrow arrow-up" onClick={() => this.updateItem({id: value.id, target: value.target + 1})}>&#9650;</button>
+                <button className="btn arrow arrow-down" onClick={() => this.updateItem({id: value.id, target: value.target - 1})}>&#9660;</button>
             </div>
             <p className="num">{this.formatDate(value.updated)}</p>
             <img className="btn btn-delete" src={require('./delete.png')} alt="delete-icon" onClick={() => this.deleteItem(value.id)}></img>

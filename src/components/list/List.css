@@ -48,6 +48,7 @@ input[type="number"] {
 
 .name {
     text-align: left;
+    padding-left: 10px;
 }
 
 .btn {
@@ -70,8 +71,22 @@ input[type="number"] {
 }
 
 .btn-delete {
-    height: 40px;
+    height: 35px;
     padding: 5px;
+}
+
+.btn-edit {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    font-size: 25px;
+}
+
+.btn-save {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    font-size: 25px;
 }
 
 .amount {
