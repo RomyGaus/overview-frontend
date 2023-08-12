@@ -24,15 +24,31 @@ class ItemRow extends Component {
     return text;
   };
 
+  validateNumber = (num) => {
+    if(num !== undefined) {
+        if(num > 100) {
+            return 100
+        } else if(num < 0) {
+            return 0
+        } else {
+            return num
+        }
+    }
+  }
+
   updateItem = (item) => {
+    var validatedItem = item;
+    validatedItem.amount = this.validateNumber(item.amount);
+    validatedItem.target = this.validateNumber(item.target);
+
     fetch(`http://localhost:8000/stocks/${this.state.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
+      body: JSON.stringify(validatedItem),
     })
       .then((response) => response.json())
       .then((json) => {
-        let newState = item
+        let newState = validatedItem
         item.updated = json.data.updated
         this.setState(newState);
       });
