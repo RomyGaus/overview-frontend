@@ -89,6 +89,17 @@ input[type="number"] {
     font-size: 25px;
 }
 
+.item-name {
+    display: grid;
+    grid-template-columns: auto 50px;
+    grid-template-rows: auto;
+    align-items: center;
+}
+
+.item-name input {
+    height: 40px;
+}
+
 .amount {
     display: flex;
     flex-wrap: wrap;

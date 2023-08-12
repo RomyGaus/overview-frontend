@@ -9,7 +9,8 @@ class ItemRow extends Component {
         name: props.value.name,
         amount: props.value.amount,
         target: props.value.target,
-        updated: props.value.updated
+        updated: props.value.updated,
+        isEditingName: false
     };
   }
 
@@ -57,15 +58,16 @@ class ItemRow extends Component {
   render() {
     return (
       <div className="list-row" key={this.key}>
-        <div>
+        <div className="item-name">
           <input
             className="name"
             type="text"
             name=""
             defaultValue={this.state.name}
           />
-          <button className="btn btn-edit">&#9998;</button>
-          <button
+          { this.state.isEditingName === false
+            ? <button className="btn btn-edit">&#9998;</button>
+            : <button
             className="btn btn-save"
             onClick={() =>
               this.updateItem({ name: this.state.name })
@@ -73,6 +75,7 @@ class ItemRow extends Component {
           >
             &#x2713;
           </button>
+          }
         </div>
         <div className="amount">
           <input
