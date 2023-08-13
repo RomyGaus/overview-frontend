@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ShoppingItemRow from "./ShoppingItemRow";
 import "./ShoppingList.css";
 
 class ShoppingList extends Component {
@@ -27,8 +28,12 @@ class ShoppingList extends Component {
     render() {
         return(
             <div className="box">
+                <div className="shopping-list-row shopping-list-header">
+                    <p>Name</p>
+                    <p>Quantity</p>
+                </div>
                 {Object.entries(this.state.items).map(([key, value]) => (
-                    <p>{value.name}</p>
+                    <ShoppingItemRow key={key} value={value}></ShoppingItemRow>
                 ))}
             </div>
         )
