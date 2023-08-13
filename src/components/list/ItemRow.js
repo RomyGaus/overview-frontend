@@ -10,7 +10,7 @@ class ItemRow extends Component {
         amount: props.value.amount,
         target: props.value.target,
         updated: props.value.updated,
-        isEditingName: false
+        editingName: null
     };
   }
 
@@ -55,6 +55,25 @@ class ItemRow extends Component {
       });
   };
 
+  editName = () => {
+    this.setState({
+        editingName: this.state.name
+    })
+  }
+
+  submitName = () => {
+    this.updateItem({ name: this.state.editingName })
+    this.setState({
+        editingName: null
+    })
+  }
+
+  updateEditingName = (value) => {
+    this.setState({
+        editingName: value
+    })
+  }
+
   render() {
     return (
       <div className="list-row" key={this.key}>
@@ -64,15 +83,15 @@ class ItemRow extends Component {
             type="text"
             name=""
             defaultValue={this.state.name}
+            disabled={this.state.editingName === null}
+            onChange={e => this.updateEditingName(e.target.value)}
           />
-          { this.state.isEditingName === false
-            ? <button className="btn btn-edit">&#9998;</button>
+          { this.state.editingName === null
+            ? <button className="btn btn-edit" onClick={this.editName}>&#9998;</button>
             : <button
             className="btn btn-save"
-            onClick={() =>
-              this.updateItem({ name: this.state.name })
-            }
-          >
+            onClick={this.submitName}
+            >
             &#x2713;
           </button>
           }
@@ -86,26 +105,28 @@ class ItemRow extends Component {
             value={this.state.amount}
             readOnly
           />
-          <button
-            className="btn arrow arrow-up"
-            onClick={() =>
-              this.updateItem({
-                amount: this.state.amount + 1
-              })
-            }
-          >
-            &#9650;
-          </button>
-          <button
-            className="btn arrow arrow-down"
-            onClick={() =>
-              this.updateItem({
-                amount: this.state.amount - 1
-              })
-            }
-          >
-            &#9660;
-          </button>
+          <div>
+            <button
+                className="btn arrow arrow-up"
+                onClick={() =>
+                this.updateItem({
+                    amount: this.state.amount + 1
+                })
+                }
+            >
+                &#9650;
+            </button>
+            <button
+                className="btn arrow arrow-down"
+                onClick={() =>
+                this.updateItem({
+                    amount: this.state.amount - 1
+                })
+                }
+            >
+                &#9660;
+            </button>
+          </div>
         </div>
         <div className="target">
           <input
@@ -116,26 +137,28 @@ class ItemRow extends Component {
             value={this.state.target}
             readOnly
           />
-          <button
-            className="btn arrow arrow-up"
-            onClick={() =>
-              this.updateItem({
-                target: this.state.target + 1
-              })
-            }
-          >
-            &#9650;
-          </button>
-          <button
-            className="btn arrow arrow-down"
-            onClick={() =>
-              this.updateItem({
-                target: this.state.target - 1
-              })
-            }
-          >
-            &#9660;
-          </button>
+          <div>
+            <button
+                className="btn arrow arrow-up"
+                onClick={() =>
+                this.updateItem({
+                    target: this.state.target + 1
+                })
+                }
+            >
+                &#9650;
+            </button>
+            <button
+                className="btn arrow arrow-down"
+                onClick={() =>
+                this.updateItem({
+                    target: this.state.target - 1
+                })
+                }
+            >
+                &#9660;
+            </button>
+          </div>
         </div>
         <p className="num">{this.formatDate(this.state.updated)}</p>
         <img

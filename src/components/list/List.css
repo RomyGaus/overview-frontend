@@ -101,13 +101,23 @@ input[type="number"] {
 }
 
 .amount {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: auto 50px;
+    grid-template-rows: auto;
+    align-items: center;
+}
+
+.amount input {
+    height: 40px;
 }
 
 .target {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: auto 50px;
+    grid-template-rows: auto;
+    align-items: center;
+}
+
+.target input {
+    height: 40px;
 }
