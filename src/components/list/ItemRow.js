@@ -39,8 +39,12 @@ class ItemRow extends Component {
 
   updateItem = (item) => {
     var validatedItem = item;
-    validatedItem.amount = this.validateNumber(item.amount);
-    validatedItem.target = this.validateNumber(item.target);
+    if(item.amount !== undefined) {
+        validatedItem.amount = this.validateNumber(item.amount);
+    }
+    if(item.target !== undefined) {
+        validatedItem.target = this.validateNumber(item.target);
+    }
 
     fetch(`http://localhost:8000/stocks/${this.state.id}`, {
       method: "PATCH",
