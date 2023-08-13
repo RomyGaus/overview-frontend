@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import List from './components/list/List.js';
+import ShoppingList from './components/shoppingList/ShoppingList.js';
+import Header from './components/header/Header.js';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      route: 'overview',
+    };
+  }
+
+  changeRoute = (destination) => {
+    this.setState({
+      route: destination
+    })
+  }
+
   render() {
     return(
       <div className='container'>
-        <div className='header'>
-          <h1>Overview</h1>
-          <h4>Organize your supplies and find out what you need to buy soon!</h4>
-        </div>
-        <button className='btn-shopping'>Shopping List</button>
-        <List></List>
+        <Header route={this.state.route} onRouteChange={this.changeRoute}></Header>
+        {this.state.route === 'overview'
+          ? <List></List>
+          : <ShoppingList></ShoppingList>
+        }
       </div>
     )
   }

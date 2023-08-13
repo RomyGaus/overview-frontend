@@ -6,11 +6,11 @@ class ItemRow extends Component {
     super(props);
     this.state = {
         id: props.value.id,
-        name: props.value.name,
-        amount: props.value.amount,
-        target: props.value.target,
-        updated: props.value.updated,
-        editingName: null
+        name: props.value.name ?? '',
+        amount: props.value.amount ?? 0,
+        target: props.value.target ?? 0,
+        updated: props.value.updated ?? Date.now(),
+        editingName: undefined
     };
   }
 
@@ -64,7 +64,7 @@ class ItemRow extends Component {
   submitName = () => {
     this.updateItem({ name: this.state.editingName })
     this.setState({
-        editingName: null
+        editingName: undefined
     })
   }
 
@@ -83,10 +83,10 @@ class ItemRow extends Component {
             type="text"
             name=""
             defaultValue={this.state.name}
-            disabled={this.state.editingName === null}
+            disabled={this.state.editingName === undefined}
             onChange={e => this.updateEditingName(e.target.value)}
           />
-          { this.state.editingName === null
+          { this.state.editingName === undefined
             ? <button className="btn btn-edit" onClick={this.editName}>&#9998;</button>
             : <button
             className="btn btn-save"
