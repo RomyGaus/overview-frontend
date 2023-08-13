@@ -5,12 +5,12 @@ class ItemRow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        id: props.value.id,
-        name: props.value.name ?? '',
-        amount: props.value.amount ?? 0,
-        target: props.value.target ?? 0,
-        updated: props.value.updated ?? Date.now(),
-        isEditingName: false
+      id: props.value.id,
+      name: props.value.name ?? "",
+      amount: props.value.amount ?? 0,
+      target: props.value.target ?? 0,
+      updated: props.value.updated ?? Date.now(),
+      isEditingName: false,
     };
   }
 
@@ -26,24 +26,24 @@ class ItemRow extends Component {
   };
 
   validateNumber = (num) => {
-    if(num !== undefined) {
-        if(num > 100) {
-            return 100
-        } else if(num < 0) {
-            return 0
-        } else {
-            return num
-        }
+    if (num !== undefined) {
+      if (num > 100) {
+        return 100;
+      } else if (num < 0) {
+        return 0;
+      } else {
+        return num;
+      }
     }
-  }
+  };
 
   updateItem = (item) => {
     var validatedItem = item;
-    if(item.amount !== undefined) {
-        validatedItem.amount = this.validateNumber(item.amount);
+    if (item.amount !== undefined) {
+      validatedItem.amount = this.validateNumber(item.amount);
     }
-    if(item.target !== undefined) {
-        validatedItem.target = this.validateNumber(item.target);
+    if (item.target !== undefined) {
+      validatedItem.target = this.validateNumber(item.target);
     }
 
     fetch(`http://localhost:8000/stocks/${this.state.id}`, {
@@ -53,30 +53,30 @@ class ItemRow extends Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        let newState = validatedItem
-        item.updated = json.data.updated
+        let newState = validatedItem;
+        item.updated = json.data.updated;
         this.setState(newState);
       });
   };
 
   editName = () => {
     this.setState({
-        isEditingName: true
-    })
-  }
+      isEditingName: true,
+    });
+  };
 
   submitName = () => {
-    this.updateItem({ name: this.state.name })
+    this.updateItem({ name: this.state.name });
     this.setState({
-        isEditingName: false
-    })
-  }
+      isEditingName: false,
+    });
+  };
 
   updateName = (value) => {
     this.setState({
-        name: value
-    })
-  }
+      name: value,
+    });
+  };
 
   render() {
     return (
@@ -88,17 +88,17 @@ class ItemRow extends Component {
             name=""
             defaultValue={this.state.name}
             disabled={this.state.isEditingName === false}
-            onChange={e => this.updateName(e.target.value)}
+            onChange={(e) => this.updateName(e.target.value)}
           />
-          { this.state.isEditingName === false
-            ? <button className="btn btn-edit" onClick={this.editName}>&#9998;</button>
-            : <button
-            className="btn btn-save"
-            onClick={this.submitName}
-            >
-            &#x2713;
-          </button>
-          }
+          {this.state.isEditingName === false ? (
+            <button className="btn btn-edit" onClick={this.editName}>
+              &#9998;
+            </button>
+          ) : (
+            <button className="btn btn-save" onClick={this.submitName}>
+              &#x2713;
+            </button>
+          )}
         </div>
         <div className="amount">
           <input
@@ -111,24 +111,24 @@ class ItemRow extends Component {
           />
           <div>
             <button
-                className="btn arrow arrow-up"
-                onClick={() =>
+              className="btn arrow arrow-up"
+              onClick={() =>
                 this.updateItem({
-                    amount: this.state.amount + 1
+                  amount: this.state.amount + 1,
                 })
-                }
+              }
             >
-                &#9650;
+              &#9650;
             </button>
             <button
-                className="btn arrow arrow-down"
-                onClick={() =>
+              className="btn arrow arrow-down"
+              onClick={() =>
                 this.updateItem({
-                    amount: this.state.amount - 1
+                  amount: this.state.amount - 1,
                 })
-                }
+              }
             >
-                &#9660;
+              &#9660;
             </button>
           </div>
         </div>
@@ -143,24 +143,24 @@ class ItemRow extends Component {
           />
           <div>
             <button
-                className="btn arrow arrow-up"
-                onClick={() =>
+              className="btn arrow arrow-up"
+              onClick={() =>
                 this.updateItem({
-                    target: this.state.target + 1
+                  target: this.state.target + 1,
                 })
-                }
+              }
             >
-                &#9650;
+              &#9650;
             </button>
             <button
-                className="btn arrow arrow-down"
-                onClick={() =>
+              className="btn arrow arrow-down"
+              onClick={() =>
                 this.updateItem({
-                    target: this.state.target - 1
+                  target: this.state.target - 1,
                 })
-                }
+              }
             >
-                &#9660;
+              &#9660;
             </button>
           </div>
         </div>

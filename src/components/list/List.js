@@ -38,7 +38,9 @@ class List extends Component {
       .then((response) => response.json())
       .then((json) => {
         var updatedStateItems = this.state.items;
-        updatedStateItems.push(json.data);
+        const newItem = json.data;
+        newItem['id'] = json.id;
+        updatedStateItems.push(newItem);
         this.setState({
           items: updatedStateItems,
         });
@@ -62,15 +64,17 @@ class List extends Component {
     return (
       <div className="list-container">
         <div className="list-row list-header">
-            <p>Name</p>
-            <p className="num">Amount</p>
-            <p className="num">Target</p>
-            <p className="num">Updated</p>
+          <p>Name</p>
+          <p className="num">Amount</p>
+          <p className="num">Target</p>
+          <p className="num">Updated</p>
         </div>
         {Object.entries(this.state.items).map(([key, value]) => (
-          <ItemRow key = {key} value = {value} onDelete={this.deleteItem}></ItemRow>
+          <ItemRow key={key} value={value} onDelete={this.deleteItem}></ItemRow>
         ))}
-        <button className="btn btn-new" onClick={() => this.newItem()}>New</button>
+        <button className="btn btn-new" onClick={() => this.newItem()}>
+          New
+        </button>
       </div>
     );
   }
